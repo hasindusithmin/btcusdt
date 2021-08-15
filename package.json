@@ -8,8 +8,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "nodemon test.js"
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "aws-sdk": "^2.968.0",
@@ -22,11 +21,6 @@
     "got": "^11.3.0",
     "tape": "^4.7.0"
   },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
   "author": "",
   "license": "ISC"
 }
