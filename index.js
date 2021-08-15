@@ -28,7 +28,7 @@ app.get('/retrieve/onehour', async (req, res) => {
     try {
         const date = new Date();
         let hour = date.getUTCHours();
-        if (hour < 1) hour += 24;
+        if (hour < 1) hour += 24
         const target_hour = hour - 1;
         console.log(target_hour);
         const { Items } = await dynamoClient.scan({
