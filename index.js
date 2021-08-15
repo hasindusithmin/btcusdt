@@ -1,5 +1,3 @@
-
-
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
@@ -29,7 +27,8 @@ app.get('/retrieve', async (req, res) => {
 app.get('/retrieve/onehour', async (req, res) => {
     try {
         const date = new Date();
-        const hour = date.getUTCHours();
+        let hour = date.getUTCHours();
+        if (hour < 1) hour += 24;
         const target_hour = hour - 1;
         console.log(target_hour);
         const { Items } = await dynamoClient.scan({
@@ -48,7 +47,8 @@ app.get('/retrieve/onehour', async (req, res) => {
 app.get('/retrieve/twohour', async (req, res) => {
     try {
         const date = new Date();
-        const hour = date.getUTCHours();
+        let hour = date.getUTCHours();
+        if (hour < 2) hour += 24;
         const target_hour = hour - 2;
         console.log(target_hour);
         const { Items } = await dynamoClient.scan({
@@ -67,7 +67,8 @@ app.get('/retrieve/twohour', async (req, res) => {
 app.get('/retrieve/threehour', async (req, res) => {
     try {
         const date = new Date();
-        const hour = date.getUTCHours();
+        let hour = date.getUTCHours();
+        if (hour < 3) hour += 24;
         const target_hour = hour - 3;
         console.log(target_hour);
         const { Items } = await dynamoClient.scan({
@@ -91,7 +92,7 @@ app.listen(port)
 const deleteOld = async (H) => {
     try {
         let hour = H;
-        if (H == 0) hour = 24;
+        if (H < 4) hour += 24;
         let target_hour = hour - 4;
         const { Items } = await dynamoClient.scan({
             TableName: 'sticks',
@@ -149,5 +150,3 @@ btc.onmessage = e => {
     if (M == 0 && S % 5 == 0) deleteOld(H)
     insertNew(stick)
 }
-
-//{"event_time":"13:06:17","utc_hour":7,"kline_time":1629012900000,"open_price":"46253.57000000","close_price":"46266.03000000","high_price":"46281.71000000","low_price":"46234.56000000","volume":"33.20025100"}
