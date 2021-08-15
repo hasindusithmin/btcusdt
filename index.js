@@ -50,6 +50,8 @@ app.get('/retrieve/twohour', async (req, res) => {
         let hour = date.getUTCHours();
         if (hour < 2) hour += 24;
         const target_hour = hour - 2;
+        const hour = date.getUTCHours();
+        const target_hour = Math.abs(hour - 2);
         console.log(target_hour);
         const { Items } = await dynamoClient.scan({
             TableName: 'sticks',
@@ -150,3 +152,5 @@ btc.onmessage = e => {
     if (M == 0 && S % 5 == 0) deleteOld(H)
     insertNew(stick)
 }
+
+
