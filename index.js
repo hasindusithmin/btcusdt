@@ -30,7 +30,6 @@ app.get('/retrieve/onehour', async (req, res) => {
         let hour = date.getUTCHours();
         if (hour < 1) hour += 24
         const target_hour = hour - 1;
-        console.log(target_hour);
         const { Items } = await dynamoClient.scan({
             TableName: 'sticks',
             FilterExpression: 'utc_hour = :th',
@@ -50,9 +49,6 @@ app.get('/retrieve/twohour', async (req, res) => {
         let hour = date.getUTCHours();
         if (hour < 2) hour += 24;
         const target_hour = hour - 2;
-        const hour = date.getUTCHours();
-        const target_hour = Math.abs(hour - 2);
-        console.log(target_hour);
         const { Items } = await dynamoClient.scan({
             TableName: 'sticks',
             FilterExpression: 'utc_hour = :th',
@@ -72,7 +68,6 @@ app.get('/retrieve/threehour', async (req, res) => {
         let hour = date.getUTCHours();
         if (hour < 3) hour += 24;
         const target_hour = hour - 3;
-        console.log(target_hour);
         const { Items } = await dynamoClient.scan({
             TableName: 'sticks',
             FilterExpression: 'utc_hour = :th',
@@ -151,6 +146,7 @@ btc.onmessage = e => {
     }
     if (M == 0 && S % 5 == 0) deleteOld(H)
     insertNew(stick)
+    console.log(stick);
 }
 
 
