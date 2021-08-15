@@ -30,7 +30,7 @@ app.get('/retrieve/onehour', async (req, res) => {
     try {
         const date = new Date();
         const hour = date.getUTCHours();
-        const target_hour = hour - 1;
+        const target_hour = Math.abs(hour - 1);
         console.log(target_hour);
         const { Items } = await dynamoClient.scan({
             TableName: 'sticks',
@@ -49,7 +49,7 @@ app.get('/retrieve/twohour', async (req, res) => {
     try {
         const date = new Date();
         const hour = date.getUTCHours();
-        const target_hour = hour - 2;
+        const target_hour = Math.abs(hour - 2);
         console.log(target_hour);
         const { Items } = await dynamoClient.scan({
             TableName: 'sticks',
@@ -68,7 +68,7 @@ app.get('/retrieve/threehour', async (req, res) => {
     try {
         const date = new Date();
         const hour = date.getUTCHours();
-        const target_hour = hour - 3;
+        const target_hour = Math.abs(hour - 3);
         console.log(target_hour);
         const { Items } = await dynamoClient.scan({
             TableName: 'sticks',
@@ -92,7 +92,7 @@ const deleteOld = async (H) => {
     try {
         let hour = H;
         if (H == 0) hour = 24;
-        let target_hour = hour - 4;
+        let target_hour = Math.abs(hour - 4);
         const { Items } = await dynamoClient.scan({
             TableName: 'sticks',
             FilterExpression: 'utc_hour = :th',
